@@ -10,6 +10,8 @@
     "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-add-src": "^0.2.0",
+    "gulp-copy": "0.0.2",
+    "gulp-file-copy": "0.0.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tsd": "0.0.4",
     "gulp-typescript": "^2.9.2",

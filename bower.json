@@ -1,0 +1,26 @@
+{
+  "name": "hello-typescript",
+  "version": "0.0.1",
+  "homepage": "https://github.com/erosb/hello-typescript",
+  "authors": [
+    "Bence Eros <ebence88@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.20",
+    "text": "~2.0.14"
+  }
+}

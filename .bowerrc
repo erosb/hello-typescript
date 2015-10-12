@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "postinstall": "bower-requirejs -t -c src/config.js"
+  }
+}
