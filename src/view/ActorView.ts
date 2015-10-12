@@ -8,7 +8,7 @@ var template = require("text!../template/ActorView.html");
 class ActorView extends Backbone.View<ActorModel> {
 	
 	render() {
-		this.$el.append(template);
+		this.$el.append(_.template(template)({name: "foo"}));
 		return this;
 	}
 }

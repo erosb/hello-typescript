@@ -1,5 +1,6 @@
 {
+  "directory" : "static-skeleton/bower_components",
   "scripts": {
-    "postinstall": "bower-requirejs -t -c src/config.js"
+    "postinstall": "bower-requirejs -t -c static-skeleton/js/config.js"
   }
 }

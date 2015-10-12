@@ -16,10 +16,15 @@ gulp.task("clean", function () {
 });
 
 gulp.task("copy-js", ["clean"], function() {
-	gulp.src(["src/**/*.js", "src/template/*"])
-		.pipe(copy("target/", {
+	gulp.src("static-skeleton/**/*")
+		.pipe(copy("target", {
 			"prefix" : 1
 		}));
+	gulp.src("src/template/*.html")
+		.pipe(copy("target/js", {
+			"prefix" : 1
+		}));
+		
 });
 
 // tsc --outDir target --module amd src/*.ts typings/tsd.d.ts
@@ -31,5 +36,5 @@ gulp.task("compile", ["copy-js"], function() {
 			module: "amd"
 		}))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest("target"));
+		.pipe(gulp.dest("target/js"));
 });
