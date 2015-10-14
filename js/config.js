@@ -28,9 +28,7 @@ requirejs.config({
   ]
 });
 
-
-require(['jasmine-boot'], function () {
-  require(['tests/model/UserModelTest', 'tests/view/UserViewTest'], function(){
-    window.onload();
-  })
+define([document.getElementsByTagName("script")[0].getAttribute("data-bootstrap")], function(bootstrap) {
+	bootstrap();
 });
+

@@ -11,7 +11,7 @@ var copy = require("gulp-copy");
 var tslint = require('gulp-tslint');
 
 gulp.task("clean", function () {
-	return gulp.src("js")
+	return gulp.src("js/*/**")
 		.pipe(vinylPaths(del));
 });
 
@@ -20,8 +20,8 @@ gulp.task("copy-templates", ["clean"], function() {
 		.pipe(copy("js", {
 			"prefix" : 1
 		}));
-	gulp.src(["test.js"])
-		.pipe(copy("js"));
+	//gulp.src(["test.js", "config.js"])
+	//	.pipe(copy("js"));
 		
 });
 
