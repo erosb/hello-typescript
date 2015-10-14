@@ -7,18 +7,15 @@ requirejs.config({
     underscore: "../bower_components/underscore/underscore",
     jquery: "../bower_components/jquery/dist/jquery",
     requirejs: "../bower_components/requirejs/require",
-    text: "../bower_components/text/text"
+    text: "../bower_components/text/text",
+    "jasmine-core": "../bower_components/jasmine-core/lib/jasmine-core/jasmine"
   },
   packages: [
 
   ]
 });
-console.log("config loading done");	
-define(["jquery", "view/ActorView"], function($, ActorView) {
-	console.log("itt");		
-	var actorView = new ActorView();
-	
-	$("body").append(actorView.render().$el);
-	
+
+define(["app"], function(app) {
+	app();
 });
-console.log("after the define call");	
+

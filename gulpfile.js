@@ -8,7 +8,7 @@ var vinylPaths = require("vinyl-paths");
 var del = require("del");
 var tsd = require("gulp-tsd");
 var copy = require("gulp-copy");
-
+var tslint = require('gulp-tslint');
 
 gulp.task("clean", function () {
 	return gulp.src("target")
@@ -27,14 +27,37 @@ gulp.task("copy-js", ["clean"], function() {
 		
 });
 
+var tscOptions = {
+	module: "amd",
+	target : "ES5"
+};
+
+gulp.task("lint", function() {
+	gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
+		.pipe(tslint({
+			configuration : {
+				rules : {
+					// add your tslint rules here, see https://www.npmjs.com/package/tslint
+				}
+			}
+		}))
+		.pipe(tslint.report("verbose"));
+});
+
 // tsc --outDir target --module amd src/*.ts typings/tsd.d.ts
-gulp.task("compile", ["copy-js"], function() {
+gulp.task("compile", ["lint", "copy-js"], function() {
 	return gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
 		.pipe(sourcemaps.init())
-		.pipe(tsc({
-			outDir: "target/main/js",
-			module: "amd"
-		}))
+		.pipe(tsc(tscOptions))
 		.pipe(sourcemaps.write())
+		.pipe(gulp.dest("target/js"));
+});
+
+
+gulp.task("test-compile", ["copy-js"], function(){
+	return gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
+		//.pipe(sourcemaps.init())
+		.pipe(tsc(tscOptions))
+		//.pipe(sourcemaps.write())
 		.pipe(gulp.dest("target/js"));
 });
