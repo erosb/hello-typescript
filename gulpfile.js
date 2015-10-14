@@ -1,9 +1,7 @@
 var gulp = require("gulp");
 var addsrc = require("gulp-add-src");
 var tsc = require("gulp-typescript");
-// var concat = require("gulp-concat");
 var sourcemaps = require("gulp-sourcemaps");
-//var jasmine = require('gulp-jasmine');
 var vinylPaths = require("vinyl-paths");
 var del = require("del");
 var tsd = require("gulp-tsd");
@@ -20,8 +18,6 @@ gulp.task("copy-templates", ["clean"], function() {
 		.pipe(copy("js", {
 			"prefix" : 1
 		}));
-	//gulp.src(["test.js", "config.js"])
-	//	.pipe(copy("js"));
 		
 });
 
@@ -51,11 +47,24 @@ gulp.task("compile", ["copy-templates"], function() {
 		.pipe(gulp.dest("js"));
 });
 
-
 gulp.task("test-compile", ["copy-templates"], function(){
 	return gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
 		//.pipe(sourcemaps.init())
 		.pipe(tsc(tscOptions))
 		//.pipe(sourcemaps.write())
 		.pipe(gulp.dest("js"));
+});
+
+
+var tsProject = tsc.createProject(tscOptions);
+
+gulp.task("scripts", function() {
+	var tsResult = gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
+		.pipe(tsc(tsProject));
+		
+	return tsResult.js.pipe(gulp.dest('js'));
+});
+
+gulp.task('watch', ['scripts'], function() {
+    gulp.watch('src/**/*.ts', ['scripts']);
 });
