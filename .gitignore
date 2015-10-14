@@ -2,4 +2,9 @@ target
 typings
 node_modules
 bower_components
+js/*
+!js/test.js
+!js/config.js
+!js/app.js
+
 
