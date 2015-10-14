@@ -13,7 +13,7 @@ gulp.task("clean", function () {
 		.pipe(vinylPaths(del));
 });
 
-gulp.task("copy-templates", ["clean"], function() {
+gulp.task("copy-templates", function() {
 	gulp.src("src/template/*.html")
 		.pipe(copy("js", {
 			"prefix" : 1
@@ -51,6 +51,7 @@ gulp.task("compile", function() {
 		.pipe(gulp.dest('js'));
 });
 
-gulp.task("watch", ["compile"], function() {
+gulp.task("watch", ["clean", "copy-templates", "compile"], function() {
     gulp.watch("src/**/*.ts", ["compile"]);
+    gulp.watch("src/**/*.html", ["copy-templates"]);
 });
