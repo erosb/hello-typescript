@@ -60,9 +60,12 @@ var tsProject = tsc.createProject(tscOptions);
 
 gulp.task("scripts", function() {
 	var tsResult = gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
+		.pipe(sourcemaps.init())
 		.pipe(tsc(tsProject));
 		
-	return tsResult.js.pipe(gulp.dest('js'));
+	return tsResult.js
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('js'));
 });
 
 gulp.task('watch', ['scripts'], function() {
