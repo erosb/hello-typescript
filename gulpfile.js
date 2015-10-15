@@ -9,7 +9,7 @@ var copy = require("gulp-copy");
 var tslint = require('gulp-tslint');
 
 gulp.task("clean", function () {
-	return gulp.src("js/*/**")
+	return gulp.src(["js/*/**", "dist"])
 		.pipe(vinylPaths(del));
 });
 
@@ -21,13 +21,15 @@ gulp.task("copy-templates", function() {
 		
 });
 
+var tsPath = ["src/**/*.ts", "typings/tsd.d.ts"];
+
 var tscOptions = {
 	module: "amd",
 	target : "ES5"
 };
 
 gulp.task("lint", function() {
-	gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
+	gulp.src(tsPath)
 		.pipe(tslint({
 			configuration : {
 				rules : {
@@ -42,7 +44,7 @@ gulp.task("lint", function() {
 var tsProject = tsc.createProject(tscOptions);
 
 gulp.task("compile", function() {
-	var tsResult = gulp.src(["src/**/*.ts", "typings/tsd.d.ts"])
+	var tsResult = gulp.src(tsPath)
 		.pipe(sourcemaps.init())
 		.pipe(tsc(tsProject));
 		
@@ -54,4 +56,13 @@ gulp.task("compile", function() {
 gulp.task("watch", ["clean", "copy-templates", "compile"], function() {
     gulp.watch("src/**/*.ts", ["compile"]);
     gulp.watch("src/**/*.html", ["copy-templates"]);
+});
+
+
+gulp.task("dist", ["clean", "copy-templates", "compile"], function() {
+	gulp.src(tsPath)
+		.pipe(tsc(tscOptions))
+		.pipe(gulp.dest("js"));
+	gulp.src(["js", "index.html"])
+		.pipe(gulp.dest("dist"));
 });
