@@ -14,8 +14,6 @@ It consists of the following components:
 * jasmine (unit testing)
 
 Prerequisites
-
-Prerequisites
 -------------
 
 	npm install -g bower
